@@ -9,12 +9,6 @@
 #include "app_lora.h"
 
 //  =========== globals ====================================================================
-struct payload_serial {
-		char *id_test;
-		int16_t rand_val;
-};
-
-/* alias ledtx on devicetree - test on customed MDBT50Q board */
 static const struct gpio_dt_spec led_tx = GPIO_DT_SPEC_GET(LED_TX, gpios);
 
 //  ========== main ========================================================================
@@ -23,11 +17,8 @@ int8_t main(void)
 	const struct device *lora_dev;
 	int8_t ret;
 	int8_t itr = 0;
+	int16_t payload;
 
-	struct payload_serial test_tx;
-	// first node for next LoRaWAn application
-	char dev_eui[] = "0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x06, 0x21, 0xA5";	
-	
 	printk("LoRa Transmitter Example\nBoard: %s\n", CONFIG_BOARD);
 	
 	// setup lora radio device
@@ -53,10 +44,9 @@ int8_t main(void)
 	// transmission of packets on lora phy layer forever
 	while (1) {
 		// data to be transmitted
-		test_tx.id_test = dev_eui;
-		test_tx.rand_val = sys_rand16_get();	// random value simulating ADC value in int16 format
+		payload = sys_rand16_get();	// random value simulating ADC value in int16 format
 
-		ret = lora_send(lora_dev, &test_tx, sizeof(test_tx));
+		ret = lora_send(lora_dev, &payload, sizeof(payload));
 		if (ret < 0) {
 			printk("LoRa send failed. error%d\n", ret);
 			return 0;
@@ -68,9 +58,9 @@ int8_t main(void)
 			}
 			
 			// printing of data and size of packets
-			printk("XMIT %d bytes: \n", sizeof(test_tx));
-			for (uint16_t i = 0; i < sizeof(test_tx); i++) {
-				printk("id: %s, value: %u\n", test_tx.id_test, test_tx.rand_val);
+			printk("XMIT %d bytes: \n", sizeof(payload));
+			for (int16_t i = 0; i < sizeof(payload); i++) {
+				printk("value: %d\n", payload);
 			}
 			printk("\n");
 		}
