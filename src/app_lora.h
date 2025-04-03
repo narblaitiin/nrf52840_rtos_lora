@@ -8,7 +8,7 @@
 #ifndef APP_LORA_H
 #define APP_LORA_H
 
-//  ========== include =====================================================================
+//  ========== includes ====================================================================
 #include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/lora.h>
