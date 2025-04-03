@@ -59,9 +59,7 @@ int8_t main(void)
 			
 			// printing of data and size of packets
 			printk("XMIT %d bytes: \n", sizeof(payload));
-			for (int16_t i = 0; i < sizeof(payload); i++) {
-				printk("value: %d\n", payload);
-			}
+			printk("value: %d\n", payload);
 			printk("\n");
 		}
 		k_sleep(K_MSEC(1000));	// like zephyr lora driver sample
