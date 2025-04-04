@@ -11,7 +11,7 @@ Please check the frequency/channel configuration prior to use and ensure you are
 The following commands clean build folder, build and flash the sample:
 
 **Command to use**
-
+````
 west build -t pristine
 
 west build -p always -b mdbt50q_lora_dev applications/nrf52840_rtos_lora
