@@ -17,6 +17,7 @@
 
 //  ========== defines =====================================================================
 #define TRANSMIT    1
+#define RECEIVE     0
 #define LED_TX      DT_ALIAS(ledtx)  // declared in device tree 
 
 //  ========== prototypes ==================================================================
